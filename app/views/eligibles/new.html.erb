@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-center">
+<%= form_with(model: @eligible, url: new_eligible_path(@section_id), local: true, html: { style: "min-width: 30%;" }) do |form| %>
+  <% if @eligible.errors.any? %>
+    <div class="mt-3 alert alert-danger alert-dismissable fade show" role="alert">
+      <% @eligible.errors.full_messages.each do |msg| %>
+      <div><%= msg %></div>
+      <% end %>
+    </div>
+  <% end %>
+  <section class="card shadow my-5 pt-4" style="background-color: rgba(114, 108, 248, 0.3);">
+    <div class="card-body">
+      <h3 class="card-title text-white mb-4"><%= Section.find_by(id: @section_id).name.capitalize %> Criteria Update</h3>
+      <div class="form-floating mb-3">
+        <%= form.number_field :age, step: :any, class: "form-control", placeholder: "6" %>
+        <%= form.label :age, "Minimum Age" %>
+      </div>
+      <div class="form-floating mb-3">
+        <%= form.number_field :grade, step: :any, class: "form-control", placeholder: "40" %>
+        <%= form.label :grade, "Minimum percentage" %>
+      </div>
+      
+      <%= form.hidden_field :section_id, class: "form-control", value: @section_id %>
+      
+      <div class="d-flex text-center gap-3">
+        <%= form.submit "Add Criteria", class: "button__student w-100" %>
+        <%= link_to "Back", section_path, class: "button__student w-100" %>
+      </div>
+    </div>
+  </section>
+<% end %>
+</div>

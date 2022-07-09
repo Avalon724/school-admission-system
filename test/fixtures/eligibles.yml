@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  age: 1
+  grade: 1
+  section: one
+
+two:
+  age: 1
+  grade: 1
+  section: two

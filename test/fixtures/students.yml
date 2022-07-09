@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  section: one
+  user: one
+  name: MyString
+  father: MyString
+  mother: MyString
+  address: MyText
+  pnumber: 1
+  prevgrade: 1
+
+two:
+  section: two
+  user: two
+  name: MyString
+  father: MyString
+  mother: MyString
+  address: MyText
+  pnumber: 1
+  prevgrade: 1

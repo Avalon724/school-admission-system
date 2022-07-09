@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center align-items-center">
+  <section class="card my-5 shadow" 
+    style="background-color: rgba(114, 108, 248, 0.3); min-width: 60%; border-radius: 0.5rem;">
+    <div class="row g-0">
+      <div class="col-md-4 text-center pt-3" 
+      style="border-radius: 0.5rem;
+        background: linear-gradient(to right bottom, rgba(246, 211, 101, 0.8), rgba(253, 160, 133, 0.8));">
+        <%= image_tag @student.photo, class: "img-fluid my-5", style: "width: 150px; height: 150px; border-radius: 50%; object-fit: cover;" if @student.photo.attached? %>
+        <h2 class="mb-3 px-2"><%= @student.name %></h2>
+        <h4 class="mb-3"><%= @student.section.name.capitalize %> Section</h4>
+        <div class="d-flex text-center gap-2 p-3">
+          <%= link_to "Edit", edit_student_path(@student), class: "button__edit w-100" %>
+          <%= link_to "Back", students_path, class: "button__student w-100" %>
+        </div>
+        <div class="pb-3 px-3"><%= link_to "Delete", student_path(@student), method: :delete, class: "btn btn-danger w-100", style: "font-size: 1.2rem; padding: 0.8rem;" %></div>
+      </div>
+      <div class="mobile__adjust d-flex gap-3 flex-column justify-content-between col-md-8 p-4 text-white">
+        <div class="row">
+          <div class="col-6">
+            <h5><strong>Father's Name:</strong></h5>
+          </div>
+          <div class="col-6">
+            <h5><%= @student.father %></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <h5><strong>Mother's Name:</strong></h5>
+          </div>
+          <div class="col-6">
+            <h5><%= @student.mother %></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <h5><strong>Age:</strong></h5>
+          </div>
+          <div class="col-6">
+            <h5><%= @student.age %></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <h5><strong>Address:</strong></h5>
+          </div>
+          <div class="col-6">
+            <h5><%= @student.address %></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <h5><strong>Phone:</strong></h5>
+          </div>
+          <div class="col-6">
+            <h5><%= @student.pnumber %></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <h5><strong>Previous Grade:</strong></h5>
+          </div>
+          <div class="col-6">
+            <h5><%= @student.prevgrade %></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="align-middle col-6">
+            <h5><strong>Marksheet Preview:</strong></h5>
+          </div>
+          <div class="col-6">
+            <% if @student.marksheet.previewable? %>
+              <%= image_tag @student.marksheet.preview(resize_to_fit: [150, 150]), class: "my-3" %>
+            <% elsif @student.marksheet.variable? %>
+              <%= image_tag @student.marksheet.variant(resize_to_fit: [150, 150]), class: "my-3" %>
+            <% end %>
+            <div class="my-2"><%= link_to "Download", rails_blob_path(@student.marksheet, disposition: "attachment"), class: "button__student" %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

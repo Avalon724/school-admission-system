@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center" style="min-width: 50%;">
+  <section class="card shadow" style="background-color: rgba(114, 108, 248, 0.3);">
+    <div class="card-body text-white">
+      <h2 class="my-4">Update admissions for the given sections:</h2>
+      <p class="h5 mb-4">The following section shows the ongoing admissions for particuar sections. Update if necessary.</p>
+      <%= form_for :@sec, url: section_path, html: { class: "form__container" }, method: :patch do |f| %>
+        <% @sec.each do |section| %>
+        <div class="form__main">
+          <%= f.check_box :name, { multiple: true, checked: section[1] }, section[0], false %>
+          <%= f.label section[0] %>
+        </div>
+        <% end %>
+        <%= f.submit "Update", class: "button__student mt-3", style: "max-width: 100%;" %>
+      <% end %>
+    </div>  
+  </section>
+</div>

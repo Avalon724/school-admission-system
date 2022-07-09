@@ -1,0 +1,20 @@
+<%= form_for @section do |form| %>
+  <% if @section.errors.any? %>
+    <div class="alert alert-danger alert-dissmissable fade show" role="alert">
+      <% @section.errors.full_messages.each do |msg| %>
+      <div><%= msg %></div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="mb-3">
+    <%= form.label :name, "Section Name" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Name of the section" %>
+  </div>
+  <div class="mb-3">  
+    <%= form.label :value, "Select the admission process" %>
+    <%= form.select :value, options_for_select([true, false]), class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.submit "Add Section", class: "btn btn-secondary" %>
+  </div>
+<% end %>

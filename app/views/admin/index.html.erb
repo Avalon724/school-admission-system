@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center">
+  <section class="card shadow text-white" style="background-color: rgba(114, 108, 248, 0.1);">
+    <div class="card-body">
+      <h2 class="my-4">List of all sections</h2>
+      <div class="table-responsive">
+        <table class="table align-middle text-white">
+          <thead>
+            <tr>
+              <th scope="col">Section Name</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @sec.each do |sec| %>
+              <tr>
+                <td><%= sec[0].split.map(&:capitalize) * "" %></td>
+                <td>
+                <button type="button" class="btn btn-info me-2">
+                  <%= link_to "Show ", section_show_path(sec[0]), class: "text-decoration-none text-dark" %>
+                </button>
+                <button type="button" class="btn btn-danger">
+                  <%= link_to "Delete ", section_delete_path(sec[0]), method: :delete, class: "text-decoration-none text-white" %>
+                </button>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>

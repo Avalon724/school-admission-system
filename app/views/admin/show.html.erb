@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-center">
+  <section class="card shadow my-5 text-white p-3" style="background-color: rgba(114, 108, 248, 0.3);">
+    <h1 class="h1 mt-5"><%= @section.name.split.map(&:capitalize) * "" %> Section</h1>
+    <% if @section.value == false %>
+      <p class="lead">Admissions are closed for this section at this moment.</p>
+    <% else %>
+      <p class="lead mt-6">Admissions are open for this section at this moment.</p>
+    <% end %>
+    <% if @section.eligible.present? %>
+    <h2 class="h2 my-3">Eligibility Criteria</h2>
+      <div class="d-flex flex-column gap-3 justify-content-center">
+        <div class="row">
+          <div class="col-6 h5">Minimum age :</div>
+          <div class="col-6 h5"><%= @section.eligible.age %></div>
+        </div>
+        <% if @section.eligible.grade != nil %>
+          <div class="row">
+            <div class="col-6 h5">Minimum grade :</div>
+            <div class="col-6 h5"><%= @section.eligible.grade %> %</div>
+          </div>
+        <% end %>
+        <div class="d-flex gap-3">
+          <%= link_to "Update Criteria", edit_eligibles_path(@section.eligible), class: "button__student text-center w-100" %>
+          <%= link_to "Delete Criteria", delete_eligible_path(@section.eligible), method: :delete, class: "button__student bg-danger text-center w-100" %>
+        </div>
+      </div>
+    <% else %>
+      <%= link_to "Add Criteria", new_eligible_path(@section.id), class: "button__student mt-3 w-100 text-center" %>
+    <% end %>
+  </section>
+</div>

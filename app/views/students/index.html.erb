@@ -1,0 +1,20 @@
+<section class="my-5">
+  <div class="d-flex flex-sm-row flex-column justify-content-center gap-4">
+    <% @student.each do |student| %>
+      <div class="text-center pt-3" 
+        style="border-radius: 0.5rem; max-width: 200px;
+        align-self: center;
+        background: linear-gradient(to right bottom, rgba(246, 211, 101, 0.8), rgba(253, 160, 133, 0.8));">
+        <%= image_tag student.photo, class: "img-fluid m-4", style: "width: 150px; height: 150px; border-radius: 50%; object-fit: cover;" if student.photo.attached? %>
+        <h4 class="mb-3" style="text-overflow: ellipsis; margin:auto;
+          overflow: hidden; width: 150px; 
+          height: 1.2em; white-space: nowrap;"><%= student.name %></h4>
+        <div class="d-flex text-center gap-2 p-3">
+          <%= link_to "Edit", edit_student_path(student), class: "button__edit w-100" %>
+          <%= link_to "Show", student_path(student), class: "button__student w-100" %>
+        </div>
+        <div class="pb-3 px-3"><%= link_to "Delete", student_path(student), method: :delete, class: "btn btn-danger w-100 p-2", style: "font-size: 1.2rem;" %></div>
+      </div>
+    <% end %> 
+  </div>
+</section>

@@ -1,0 +1,13 @@
+<% if Current.user.present? == false %>
+  <div class="background__index d-flex flex-column justify-content-center align-items-center">
+    <div class="card bg-transparent shadow border-0 p-3">
+      <h1 class="fw-bold display-2 text-center mb-4" style="position: relative; color: white;">Kingston School of Sciences</h1>
+      <p class="h4 text-white text-center" style="position: relative;">Please Sign Up or Log In to file applications for admissions</p>
+      <div class="d-flex gap-3 w-100 mt-5 justify-content-center align-items-center">
+        <%= link_to "Log In", sign_in_path, class: "log_in__index shadow w-100 text-center" %>
+        <h3 class="text-white">OR</h3>
+        <%= link_to "Sign Up", sign_up_path, class: "sign_up__index shadow w-100 text-center" %>
+      </div>
+    </div>
+  </div>
+<% end %>
