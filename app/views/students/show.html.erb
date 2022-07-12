@@ -5,7 +5,12 @@
       <div class="col-md-4 text-center pt-3" 
       style="border-radius: 0.5rem;
         background: linear-gradient(to right bottom, rgba(246, 211, 101, 0.8), rgba(253, 160, 133, 0.8));">
-        <%= image_tag @student.photo, class: "img-fluid my-5", style: "width: 150px; height: 150px; border-radius: 50%; object-fit: cover;" if @student.photo.attached? %>
+        <% if @student.photo.attached? %>
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <%= image_tag @student.photo, class: "img-fluid mt-5 mb-2", style: "width: 150px; height: 150px; border-radius: 50%; object-fit: cover;" %>
+            <%= link_to "Delete avatar", purge_attachment_path(@student.photo.id), method: :delete, class: "btn btn-danger text-white text-decoration-none my-3 text-center" %>
+          </div>
+        <% end %>
         <h2 class="mb-3 px-2"><%= @student.name %></h2>
         <h4 class="mb-3"><%= @student.section.name.capitalize %> Section</h4>
         <div class="d-flex text-center gap-2 p-3">
@@ -67,13 +72,19 @@
           <div class="align-middle col-6">
             <h5><strong>Marksheet Preview:</strong></h5>
           </div>
-          <div class="col-6">
-            <% if @student.marksheet.previewable? %>
-              <%= image_tag @student.marksheet.preview(resize_to_fit: [150, 150]), class: "my-3" %>
-            <% elsif @student.marksheet.variable? %>
-              <%= image_tag @student.marksheet.variant(resize_to_fit: [150, 150]), class: "my-3" %>
-            <% end %>
-            <div class="my-2"><%= link_to "Download", rails_blob_path(@student.marksheet, disposition: "attachment"), class: "button__student" %></div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex gap-3 flex-column flex-sm-row justify-content-center align-items-center my-3">
+              <% if @student.marksheets.attached? %>
+                <% @student.marksheets.includes(:blob).each do |marksheet| %>
+                  <div class="d-flex flex-column justify-content-center align-items-center">
+                    <%= image_tag marksheet.preview(resize_to_fit: [150, 150]) %>
+                    <%= link_to "Delete", purge_attachment_path(marksheet), method: :delete, class: "btn btn-danger text-decoration-none text-center text-white mt-3 fs-6" %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

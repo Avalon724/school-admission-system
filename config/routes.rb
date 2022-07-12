@@ -30,5 +30,7 @@ Rails.application.routes.draw do
   post "eligibles/:section_id", to: "eligibles#create"
   delete "eligibles/:id", to: "eligibles#destroy", as: :delete_eligible
 
+  delete "attachments/:id/purge", to: "attachments#purge", as: "purge_attachment"
+
   delete "logout", to: "sessions#destroy"
 end
