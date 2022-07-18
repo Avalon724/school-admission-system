@@ -23,6 +23,10 @@
           <%= form.select :value, options_for_select([["Admissions open", true], ["Admissions closed", false]], false), {}, { class: "form-select my-3" } %>
           <%= form.label :value, "Select the admission process", class: "text-dark" %>
         </div>
+        <div class="form-floating mb-3">
+        <%= form.number_field :fees, step: :any, class: "form-control", placeholder: "2000" %>
+        <%= form.label :fees, "Admission Fees", class: "text-dark" %>
+      </div>
         <div>
           <%= form.submit "Add Section", class: "button__student text-center" %>
         </div>

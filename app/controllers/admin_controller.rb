@@ -69,6 +69,6 @@ class AdminController < ApplicationController
   end
 
   def section_form_params
-    params.require(:section).permit(:name, :value)
+    params.require(:section).permit(:name, :value, :fees)
   end
 end

@@ -4,6 +4,13 @@ class Student < ApplicationRecord
   has_one_attached :photo
   has_many_attached :marksheets
 
+  enum status: {
+    not_reviewed: 0,
+    reviewed: 1,
+    selected: 2,
+    rejected: 3,
+  }
+
   validates :name, :father, :mother, format: { with: /\A[A-Za-z ]+\z/, message: "only letters are allowed" }
   validates :name, presence: { message: " cannot be blank" }
   validates :father, presence: { message: "\'s name cannot be blank" }

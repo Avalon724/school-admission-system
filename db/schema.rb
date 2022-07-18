@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_12_072034) do
+ActiveRecord::Schema.define(version: 2022_07_18_040530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2022_07_12_072034) do
 
   create_table "eligibles", force: :cascade do |t|
     t.integer "age"
-    t.integer "grade"
+    t.float "grade"
     t.bigint "section_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2022_07_12_072034) do
     t.boolean "value", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "fees"
   end
 
   create_table "students", force: :cascade do |t|
@@ -67,13 +68,12 @@ ActiveRecord::Schema.define(version: 2022_07_12_072034) do
     t.string "mother"
     t.text "address"
     t.bigint "pnumber"
-    t.integer "prevgrade", null: false
+    t.float "prevgrade", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "age"
-    t.boolean "approved", default: false
-    t.boolean "selected", default: false
     t.boolean "applied", default: false
+    t.integer "status", default: 0
     t.index ["section_id"], name: "index_students_on_section_id"
     t.index ["user_id"], name: "index_students_on_user_id"
   end

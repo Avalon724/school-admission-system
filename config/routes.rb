@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   post "section_new", to: "admin#create"
 
   resources :students
+  patch "students/:id/apply", to: "students#apply", as: "student_apply"
+  get "payments", to: "students#payments", as: "list_students_payment"
 
   # resources :eligibles
   get "eligibles/:id/edit", to: "eligibles#edit", as: :edit_eligibles

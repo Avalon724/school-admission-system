@@ -7,6 +7,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def student_login_auth_check
+    if (Current.user.admin == false && Current.user.id != @student.user_id)
+      redirect_to students_path, alert: "You are not an authorized user for this student"
+    end
+  end
+
   def require_user_logged_in!
     redirect_to sign_in_path, alert: "You must be signed in to do that." if Current.user.nil?
   end

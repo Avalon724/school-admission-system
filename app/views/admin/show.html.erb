@@ -6,6 +6,8 @@
     <% else %>
       <p class="lead mt-6">Admissions are open for this section at this moment.</p>
     <% end %>
+    <h2 class="my-3">Admission Fees</h2>
+    <p class="lead mt-6">Rs. <%= @section.fees %></p>
     <% if @section.eligible.present? %>
     <h2 class="h2 my-3">Eligibility Criteria</h2>
       <div class="d-flex flex-column gap-3 justify-content-center">

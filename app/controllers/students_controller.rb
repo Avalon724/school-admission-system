@@ -18,7 +18,6 @@ class StudentsController < ApplicationController
     @options = Section.where(value: true).map { |u| [u.name, u.id] }
     @student = Current.user.students.new(student_params)
     if @student.save
-      StudentMailer.with(user: @student.user.email).student_added.deliver_later
       redirect_to students_path, notice: "Successfully applied!"
     else
       render :new, status: :unprocessable_entity
@@ -35,7 +34,10 @@ class StudentsController < ApplicationController
   def edit
     @student = Student.find_by(id: params[:id])
     @options = Section.where(value: true).map { |u| [u.name, u.id] }
-    # student_login_auth_check
+    if @student.applied == true
+      redirect_to students_path, alert: "Application already submitted!"
+    end
+    student_login_auth_check
   end
 
   def update
@@ -67,15 +69,23 @@ class StudentsController < ApplicationController
     end
   end
 
-  private
-
-  def student_login_auth_check
-    if (Current.user.id != @student.user_id && Current.user.admin == false)
-      redirect_to students_path, alert: "You are not an authorized user for this student"
+  def apply
+    @student = Student.find_by(id: params[:id])
+    if @student.update(student_params)
+      StudentMailer.with(user: @student.user.email).student_added.deliver_later
+      redirect_back fallback_location: students_path, notice: "Applied Successfully!"
+    else
+      render :show, alert: "Couldn't file application!"
     end
   end
 
+  def payments
+    @student = Current.user.students
+  end
+
+  private
+
   def student_params
-    params.require(:student).permit(:name, :age, :father, :mother, :address, :pnumber, :prevgrade, :section_id, :user_id, :photo, marksheets: [])
+    params.require(:student).permit(:name, :age, :father, :mother, :address, :pnumber, :applied, :prevgrade, :section_id, :user_id, :photo, marksheets: [])
   end
 end

@@ -1,4 +1,13 @@
-<div class="d-flex justify-content-center align-items-center">
+<% button__classes = "button__student" %>
+<% button__edits = "button__edit" %>
+<% button__delete = "btn btn-danger text-decoration-none text-white" %>
+<% if @student.applied == true %>
+  <% button__classes += " btn__disable" %>
+  <% button__edits += " btn__disable" %>
+  <% button__delete += " btn__disable" %>
+<% end %>
+  
+<div class="d-flex flex-column justify-content-center align-items-center">
   <section class="card my-5 shadow" 
     style="background-color: rgba(114, 108, 248, 0.3); min-width: 60%; border-radius: 0.5rem;">
     <div class="row g-0">
@@ -8,16 +17,22 @@
         <% if @student.photo.attached? %>
           <div class="d-flex flex-column justify-content-center align-items-center">
             <%= image_tag @student.photo, class: "img-fluid mt-5 mb-2", style: "width: 150px; height: 150px; border-radius: 50%; object-fit: cover;" %>
-            <%= link_to "Delete avatar", purge_attachment_path(@student.photo.id), method: :delete, class: "btn btn-danger text-white text-decoration-none my-3 text-center" %>
+            <%= button_to "Delete avatar", purge_attachment_path(@student.photo.id), method: :delete, class: button__delete + "text-decoration-none my-3 text-center", disabled: @student.applied %>
           </div>
         <% end %>
         <h2 class="mb-3 px-2"><%= @student.name %></h2>
         <h4 class="mb-3"><%= @student.section.name.capitalize %> Section</h4>
         <div class="d-flex text-center gap-2 p-3">
-          <%= link_to "Edit", edit_student_path(@student), class: "button__edit w-100" %>
+          <%= link_to "Edit", edit_student_path(@student), class: button__edits + " w-100", disabled: @student.applied %>
           <%= link_to "Back", students_path, class: "button__student w-100" %>
         </div>
         <div class="pb-3 px-3"><%= link_to "Delete", student_path(@student), method: :delete, class: "btn btn-danger w-100", style: "font-size: 1.2rem; padding: 0.8rem;" %></div>
+        <div class="px-3 pb-3">
+          <%= form_with(model: @student, url: student_apply_path(@student), method: :patch, local: true) do |form| %>
+            <%= form.text_field :applied, value: true, hidden: true %>
+            <%= form.submit "Apply Now", class: button__classes, style: "min-width: 100%;", disabled: @student.applied %>
+          <% end %>
+        </div>
       </div>
       <div class="mobile__adjust d-flex gap-3 flex-column justify-content-between col-md-8 p-4 text-white">
         <div class="row">
@@ -80,7 +95,7 @@
                 <% @student.marksheets.includes(:blob).each do |marksheet| %>
                   <div class="d-flex flex-column justify-content-center align-items-center">
                     <%= image_tag marksheet.preview(resize_to_fit: [150, 150]) %>
-                    <%= link_to "Delete", purge_attachment_path(marksheet), method: :delete, class: "btn btn-danger text-decoration-none text-center text-white mt-3 fs-6" %>
+                    <%= button_to "Delete", purge_attachment_path(marksheet), method: :delete, class: button__delete + "text-center mt-3 fs-6", disabled: @student.applied %>
                   </div>
                 <% end %>
               <% end %>

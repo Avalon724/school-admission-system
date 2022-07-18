@@ -41,6 +41,6 @@ class EligiblesController < ApplicationController
   private
 
   def form_params
-    params.require(:eligible).permit(:age, :grade, :section_id)
+    params.require(:eligible).permit(:age, :grade, :fees, :section_id)
   end
 end

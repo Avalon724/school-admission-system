@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-center">
+  <section class="card shadow text-white" style="background-color: rgba(114, 108, 248, 0.1);">
+    <div class="card-body">
+      <h2 class="my-4"> Payment status for your applications</h2>
+      <table class="table align-middle text-white">
+        <thead>
+          <tr>
+            <th scope="col">Student Name</th>
+            <th scope="col">Admission Fees</th>
+            <% if Current.user.admin == false %><th scope="col">Action</th><% end %>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @student.each do |student| %>
+            <tr>
+              
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
