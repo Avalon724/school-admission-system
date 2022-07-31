@@ -10,4 +10,18 @@
       </div>
     </div>
   </div>
+<% elsif Current.user.present? == true %>
+  <div id="user-id" data-user-id="<%= Current.user.id %>" class="d-flex justify-content-end">
+    <div class="p-3 mt-3" style="border-radius: 0.5rem; width: 350px;
+        background: linear-gradient(to right bottom, rgba(246, 211, 101, 0.8), rgba(253, 160, 133, 0.8));">
+        <h3 class="mb-4">Notifications</h3>
+        <ul id="notify">
+        <% if @notification.nil? != true %>
+          <% @notification.each do |notification| %>
+            <li><h5 class="mb-3"><%= notification.message %></h5></li>
+          <% end %>
+        <% end %>
+        </ul>
+    </div>
+  </div>
 <% end %>

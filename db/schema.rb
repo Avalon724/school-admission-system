@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_18_040530) do
+ActiveRecord::Schema.define(version: 2022_07_30_181420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,23 @@ ActiveRecord::Schema.define(version: 2022_07_18_040530) do
     t.index ["section_id"], name: "index_eligibles_on_section_id"
   end
 
+  create_table "interviews", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.datetime "schedule"
+    t.integer "status", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["student_id"], name: "index_interviews_on_student_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "message", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.string "name"
     t.boolean "value", default: false
@@ -90,6 +107,8 @@ ActiveRecord::Schema.define(version: 2022_07_18_040530) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "eligibles", "sections"
+  add_foreign_key "interviews", "students"
+  add_foreign_key "notifications", "users"
   add_foreign_key "students", "sections"
   add_foreign_key "students", "users"
 end

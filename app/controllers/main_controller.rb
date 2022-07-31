@@ -1,6 +1,17 @@
 class MainController < ApplicationController
   def index
-    # flash[:notice] = "Logged in Successfully"
-    # flash[:alert] = "Invalid email or password"
+    if !Current.user.nil?
+      @notification = Current.user.notifications.order(id: :desc)
+    end
+    puts @notification
+  end
+
+  def notify
+  end
+
+  private
+
+  def notif_params
+    params.require(:notification).permit(:user_id, :message)
   end
 end

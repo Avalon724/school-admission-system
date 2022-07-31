@@ -1,0 +1,34 @@
+<% if @student.length == 0 %>
+  <h2>There are no applications filed.</h2>
+<% else %>
+  <div class="d-flex justify-content-center">
+    <section class="card shadow my-3 text-white w-75 text-center p-3" style="background-color: rgba(114, 108, 248, 0.3);">
+      <h1 class="h1 mt-3">List of Applications</h1>
+      <h4 class="mt-2">No. of Applications: <%= @student.length %></h4>
+      <div class="table-responsive">
+        <table class="table align-middle text-white mt-3">
+          <thead>
+            <tr class="fs-5">
+              <th scope="col">Student Name</th>
+              <th scope="col">Section</th>
+              <th scope="col">Status</th>
+              <th scope="col">Interview Status</th>
+              <th scope="col">Schedule Interview</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @student.includes(:section).each do |student| %>
+              <tr class="fs-5 text-white">
+                <td><%= link_to student.name, student_path(student), class: "text-decoration-none fs-5 text-white" %></td>
+                <td><%= student.section.name.capitalize %></td>
+                <td><%= student.status.capitalize.gsub("_", " ") %></td>
+                <td><%= link_to "Status", student_interviews_path(student), class: "btn btn-warning" %></td>
+                <td><%= link_to "Schedule", new_student_interview_path(student), class: "btn btn-info" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+<% end %>

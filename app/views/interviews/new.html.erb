@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-center">
+  <%= form_with(model: @interview, url: student_interviews_path, local: true, html: { style: "min-width: 30%;" }) do |form| %>
+    <% if @interview.errors.any? %>
+      <div class="mt-3 alert alert-danger alert-dismissable fade show" role="alert">
+        <% @interview.errors.full_messages.each do |msg| %>
+        <div><%= msg %></div>
+        <% end %>
+      </div>
+    <% end %>
+    <section class="card my-3 shadow p-3" 
+    style="background-color: rgba(114, 108, 248, 0.3);">
+      <h2 class="my-3 text-white">Schedule an Interview</h2>
+      <div class="form-floating mb-3">
+        <%= form.datetime_field :schedule, class: "form-control" %>
+        <%= form.label :schedule, "Date and Time *" %>
+      </div>
+      
+      <%= form.hidden_field :student_id, value: params[:student_id] %>
+
+      <div class="d-flex text-center">
+        <%= form.submit "Schedule", class: "button__student w-100" %>
+      </div>
+    </section>
+  <% end %>
+</div>

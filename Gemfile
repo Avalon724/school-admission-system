@@ -26,6 +26,7 @@ gem "active_storage_validations"
 # Use for debugging
 gem "pry"
 gem "bullet"
+gem "redis"
 
 # Use Active Storage variant
 gem "image_processing", "~> 1.2"

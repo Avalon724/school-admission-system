@@ -1,3 +1,7 @@
+li {
+  list-style-type: none;
+}
+
 input[type="checkbox"] {
   cursor: pointer;
   height: 25px;

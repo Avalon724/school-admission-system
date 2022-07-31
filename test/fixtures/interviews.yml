@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  schedule: 2022-07-19 11:41:57
+  status: 
+  default: 
+
+two:
+  user: two
+  schedule: 2022-07-19 11:41:57
+  status: 
+  default: 

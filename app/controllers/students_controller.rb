@@ -9,6 +9,14 @@ class StudentsController < ApplicationController
     end
   end
 
+  def applied
+    if Current.user.admin == true
+      @student = Student.where(applied: true)
+    else
+      @student = Current.user.students.where(applied: true)
+    end
+  end
+
   def new
     @student = Student.new
     @options = Section.where(value: true).map { |u| [u.name, u.id] }
@@ -19,6 +27,8 @@ class StudentsController < ApplicationController
     @student = Current.user.students.new(student_params)
     if @student.save
       redirect_to students_path, notice: "Successfully applied!"
+      message = "Student named #{@student.name} has been added"
+      notify(@student.user_id, message)
     else
       render :new, status: :unprocessable_entity
     end
@@ -74,6 +84,8 @@ class StudentsController < ApplicationController
     if @student.update(student_params)
       StudentMailer.with(user: @student.user.email).student_added.deliver_later
       redirect_back fallback_location: students_path, notice: "Applied Successfully!"
+      message = "Application for #{@student.name} has been recieved."
+      notify(@student.user_id, message)
     else
       render :show, alert: "Couldn't file application!"
     end

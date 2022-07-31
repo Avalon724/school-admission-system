@@ -1,12 +1,13 @@
 class Student < ApplicationRecord
   belongs_to :section
   belongs_to :user
+  has_many :interviews
   has_one_attached :photo
   has_many_attached :marksheets
 
   enum status: {
     not_reviewed: 0,
-    reviewed: 1,
+    scheduled: 1,
     selected: 2,
     rejected: 3,
   }
